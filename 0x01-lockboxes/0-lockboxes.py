@@ -15,28 +15,16 @@ def can_unlock_all(boxes):
     Returns:
         True if all the boxes can be opened, False otherwise.
     """
+    position = 0
+    unlocked = {}
 
-    # Check if the input is valid.
-    if not boxes or not isinstance(boxes, list):
-        return False
-
-    # Initialize a set to store the unlocked boxes.
-    unlocked = set()
-
-    # Iterate over the boxes.
     for box in boxes:
-        # Check if the box is already unlocked.
-        if box in unlocked:
-            continue
-
-        # Iterate over the keys in the box.
+        if len(box) == 0 or position == 0:
+            unlocked[position] = "always_unlocked"
         for key in box:
-            # Check if the key is already unlocked.
-            if key in unlocked:
-                continue
-
-            # Unlock the box.
-            unlocked.add(key)
-
-    # Check if all the boxes are unlocked.
-    return len(unlocked) == len(boxes)
+            if key < len(boxes) and key != position:
+                unlocked[key] = key
+        if len(unlocked) == len(boxes):
+            return True
+        position += 1
+    return False
