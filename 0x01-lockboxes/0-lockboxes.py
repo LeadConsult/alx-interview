@@ -3,7 +3,7 @@
    of lists can be opened using keys stored in the lists
 """
 
-def can_unlock_all(boxes):
+def canUnlockAll(boxes):
     """
     This function determines if all the boxes can be opened.
 
