@@ -16,17 +16,11 @@ int
 """
 
 def minOperations(n):
-    if n <= 1:
-        return n
-
-    num_ops = 0
-    num_h = 1
-    buffer = 0
-
-    while num_h < n:
-        if n % num_h == 0:
-            buffer = num_h
-        num_h += buffer
-        num_ops += 1
-
-    return num_ops
+    ops = 0
+    min_ops = 2
+    while n > 1:
+        while n % min_ops == 0:
+            ops += min_ops
+            n //= min_ops
+        min_ops += 1
+    return ops
