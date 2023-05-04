@@ -3,39 +3,29 @@
    of lists can be opened using keys stored in the lists
 """
 
-def can_unlock_all(boxes):
-    """
-    This function determines if all the boxes can be opened.
+def canUnlockAll(boxes):
+    # Create variables for the current position and unlocked boxes
+    current_position = 0
+    unlocked_boxes = {}
 
-    Args:
-        boxes: A list of lists, where each inner list represents the 
-        keys to unlock the corresponding box.
-
-    Returns:
-        True if all the boxes can be opened, False otherwise.
-    """
-
-    # Check if the input is valid.
-    if not boxes or not isinstance(boxes, list):
-        return False
-
-    # Initialize a set to store the unlocked boxes.
-    unlocked = set()
-
-    # Iterate over the boxes.
+    # Loop through each box in the list of boxes
     for box in boxes:
-        # Check if the box is already unlocked.
-        if box in unlocked:
-            continue
-
-        # Iterate over the keys in the box.
+        # If the box is empty or the position is 0, mark it as always unlocked
+        if len(box) == 0 or current_position == 0:
+            unlocked_boxes[current_position] = "always_unlocked"
+        
+        # Loop through each key in the box
         for key in box:
-            # Check if the key is already unlocked.
-            if key in unlocked:
-                continue
-
-            # Unlock the box.
-            unlocked.add(key)
-
-    # Check if all the boxes are unlocked.
-    return len(unlocked) == len(boxes)
+            # If the key is valid and not the current position, mark it as unlocked
+            if key < len(boxes) and key != current_position:
+                unlocked_boxes[key] = key
+        
+        # If all boxes are unlocked, return True
+        if len(unlocked_boxes) == len(boxes):
+            return True
+        
+        # Move to the next box
+        current_position += 1
+    
+    # If not all boxes are unlocked, return False
+    return False
