@@ -1,37 +1,57 @@
 import sys
 
-def main():
-    # Initialize variables
-    file_size = 0
-    status_code_counts = {}
+# store the count of all status codes in a dictionary
+status_codes_dict = {}
 
-    # Read lines from stdin
+# store the total size of all files in a variable
+total_size = 0
+
+# keep count of the number lines counted
+count = 0
+
+try:
     for line in sys.stdin:
-        # Split the line into words
+        # split the line into a list of words
         words = line.split()
 
-        # Get the status code and file size
-        status_code = words[-2]
-        file_size += int(words[-1])
+        # if the line is not empty and the first word is "FILE", then process the line
+        if words and words[0] == "FILE":
+            # get the status code from the second word
+            status_code = words[1]
 
-        # Increment the count for the status code
-        if status_code in status_code_counts:
-            status_code_counts[status_code] += 1
-        else:
-            status_code_counts[status_code] = 1
+            # get the file size from the third word
+            file_size = int(words[2])
 
-        # Print the status code counts every 10 lines
-        if len(status_code_counts) == 10:
-            print("File size: {}".format(file_size))
-            for status_code, count in status_code_counts.items():
-                print("{}: {}".format(status_code, count))
-            status_code_counts = {}
+            # if the status code is not in the dictionary, then add it with a count of 1
+            if status_code not in status_codes_dict:
+                status_codes_dict[status_code] = 1
 
-    # Print the final status code counts
-    if len(status_code_counts) > 0:
-        print("File size: {}".format(file_size))
-        for status_code, count in status_code_counts.items():
-            print("{}: {}".format(status_code, count))
+            # if the status code is in the dictionary, then increment its count
+            else:
+                status_codes_dict[status_code] += 1
 
-if __name__ == "__main__":
-    main()
+            # update the total size
+            total_size += file_size
+
+            # update the count of lines
+            count += 1
+
+        # if the count of lines is equal to 10, then print the status code counts and reset the count
+        if count == 10:
+            print('File size: {}'.format(total_size))
+
+            # print out status code counts
+            for key, value in sorted(status_codes_dict.items()):
+                if value != 0:
+                    print('{}: {}'.format(key, value))
+
+            count = 0
+
+except Exception as err:
+    pass
+
+finally:
+    print('File size: {}'.format(total_size))
+    for key, value in sorted(status_codes_dict.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
