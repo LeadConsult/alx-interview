@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Log parsing
+a script that reads stdin line by line and computes metrics:
 """
 
 import sys
@@ -9,16 +9,19 @@ if __name__ == '__main__':
 
     file_size, count_code = 0, 0
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
-    stats = {k: 0 for k in codes}
+    stats = {key: 0 for key in codes}
 
     def print_stats(stats: dict, file_size: int) -> None:
         """
         Prints the statistics: file size and counts for each status code.
         """
-        print("File size: {:d}".format(file_size))
-        for k, v in sorted(stats.items()):
-            if v:
-                print("{}: {}".format(k, v))
+        print(f"The file size: {file_size}")
+        for key in sorted(stats):
+            value = stats[key]
+            if value:
+                print(f"{key}: {value}")
+
+
 
     try:
         for line in sys.stdin:
