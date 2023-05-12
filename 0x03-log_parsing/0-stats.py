@@ -15,12 +15,10 @@ if __name__ == '__main__':
         """
         Prints the statistics: file size and counts for each status code.
         """
-        print(f"The file size: {file_size}")
-        for key in sorted(stats):
-            value = stats[key]
+        print("The file size: {:d}".format(file_size))
+        for key, value in sorted(stats.items()):
             if value:
-                print(f"{key}: {value}")
-
+                print("{}: {}".format(key, value))
 
 
     try:
