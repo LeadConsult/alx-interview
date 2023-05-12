@@ -9,17 +9,16 @@ if __name__ == '__main__':
 
     file_size, count_code = 0, 0
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
-    stats = {key: 0 for key in codes}
+    stats = {k: 0 for k in codes}
 
     def print_stats(stats: dict, file_size: int) -> None:
         """
         Prints the statistics: file size and counts for each status code.
         """
-        print("The file size: {:d}".format(file_size))
-        for key, value in sorted(stats.items()):
-            if value:
-                print("{}: {}".format(key, value))
-
+        print("File size: {:d}".format(file_size))
+        for k, v in sorted(stats.items()):
+            if v:
+                print("{}: {}".format(k, v))
 
     try:
         for line in sys.stdin:
