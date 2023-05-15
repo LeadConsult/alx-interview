@@ -8,6 +8,11 @@ import sys
 if __name__ == '__main__':
 
     file_size, count_code = 0, 0
+    """Two variables are being initialized: file_size
+    which will be used to store the size of the file
+    being read, and count_code which will be used to
+    count the number of codes encountered.
+    """
     codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
     stats = {k: 0 for k in codes}
 
