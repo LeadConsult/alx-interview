@@ -1,40 +1,40 @@
 #!/usr/bin/python3
+"""
+Make change module
+"""
 
 def makeChange(coins, total):
     """
-    Calculates the minimum number of coins needed to make the given total amount.
+    Given a pile of coins of different values,
+    determine the fewest number of coins
+    needed to meet a given amount 'total'
 
     Args:
-        coins (list): List of coin denominations.
-        total (int): The total amount to be made.
+        coins (list): a list of the values of the coins in your possession
+        total (number): the target amount
 
     Returns:
-        int: The minimum number of coins needed, or -1 if the total cannot be made.
+        int: the fewest number of coins needed to meet the total
+             or -1 if the total cannot be reached
 
     """
     if total <= 0:
         return 0
 
-    # Sort the coins in descending order
-    coins.sort(reverse=True)
+    coins.sort(reverse=True)  # Sort the coins in descending order
 
-    change = 0
+    i, ncoins = (0, 0)  # Initialize variables for iteration and coin count
+    cpy_total = total  # Make a copy of the total amount
+    len_coins = len(coins)  # Get the length of the coins list
 
-    for coin in coins:
-        if total <= 0:
-            break
+    # Iterate over the coins and decrement the total amount
+    while i < len_coins and cpy_total > 0:
+        if (cpy_total - coins[i]) >= 0:  # Check if the current coin can be used
+            cpy_total -= coins[i]  # Deduct the coin value from the total amount
+            ncoins += 1  # Increment the coin count
+        else:
+            i += 1  # Move to the next coin if the current coin is too large
 
-        # Calculate the maximum number of current coin denomination
-        # that can be used
-        temp = total // coin  
-        change += temp  # Add the number of coins used to the total change
-        # Deduct the total value of coins used from the total amount
-        total -= (temp * coin)
-
-    if total != 0:
-        return -1  
-    # If there is remaining amount,
-    # return -1 indicating the total cannot be made
-
-    return change
-    # Return the minimum number of coins needed
+    # Check if the total amount is not fully covered or no coins were used
+    check = cpy_total > 0 and ncoins > 0
+    return -1 if check or ncoins == 0 else ncoins  # Return -1 or the number of coins
