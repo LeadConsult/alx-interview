@@ -13,7 +13,8 @@ def isWinner(x, nums):
         nums (List[int]): A list of numbers for each round.
 
     Returns:
-        str or None: The name of the winner ('Maria' or 'Ben') or None if there is no winner.
+        str or None: The name of the winner ('Maria' or 'Ben')
+        or None if there is no winner.
 
     Raises:
         None
